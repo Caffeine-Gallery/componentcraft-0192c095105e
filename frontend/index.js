@@ -1,5 +1,4 @@
 import { AuthClient } from "@dfinity/auth-client";
-import { backend } from "declarations/backend";
 
 // Handle view switching
 document.querySelectorAll('.view-button').forEach(button => {
@@ -97,56 +96,42 @@ function updateAuthButtons(isAuthenticated) {
 async function handleSignOut() {
     const authClient = await AuthClient.create();
     await authClient.logout();
-    await backend.logout();
     updateAuthButtons(false);
 }
 
-async function handleGoogleAuth() {
-    const authClient = await initAuth();
-    await authClient.login({
-        identityProvider: "https://accounts.google.com",
-        onSuccess: async () => {
-            const identity = authClient.getIdentity();
-            const principal = identity.getPrincipal().toString();
-            await backend.registerUser(principal, "user@example.com");
-            updateAuthButtons(true);
-        },
-    });
+async function handleIIAuthentication() {
+    const authClient = await AuthClient.create();
+    if (await authClient.isAuthenticated()) {
+        handleAuthenticated(authClient);
+    } else {
+        await authClient.login({
+            identityProvider: "https://identity.ic0.app/#authorize",
+            onSuccess: () => {
+                handleAuthenticated(authClient);
+            },
+        });
+    }
 }
 
-async function handleGitHubAuth() {
-    const authClient = await initAuth();
-    await authClient.login({
-        identityProvider: "https://github.com/login/oauth/authorize",
-        onSuccess: async () => {
-            const identity = authClient.getIdentity();
-            const principal = identity.getPrincipal().toString();
-            await backend.registerUser(principal, "user@example.com");
-            updateAuthButtons(true);
-        },
-    });
+function handleAuthenticated(authClient) {
+    const identity = authClient.getIdentity();
+    const principal = identity.getPrincipal().toString();
+    console.log(`Authenticated with principal: ${principal}`);
+    updateAuthButtons(true);
 }
 
-async function handleInternetIdentityAuth() {
-    const authClient = await initAuth();
-    await authClient.login({
-        identityProvider: "https://identity.ic0.app/#authorize",
-        onSuccess: async () => {
-            const identity = authClient.getIdentity();
-            const principal = identity.getPrincipal().toString();
-            await backend.registerUser(principal, "user@example.com");
-            updateAuthButtons(true);
-        },
-    });
+// Canister interaction (placeholder)
+function callCanister() {
+    console.log("Canister interaction is not available in this demo.");
+    document.getElementById('canisterResult').textContent = "Canister interaction is not available in this demo.";
 }
+
+// Event listeners
+document.getElementById('iiAuthButton').addEventListener('click', handleIIAuthentication);
+document.getElementById('callCanisterButton').addEventListener('click', callCanister);
 
 // Initialize authentication
 initAuth();
-
-// Add event listeners for auth buttons
-document.getElementById('googleAuthButton').addEventListener('click', handleGoogleAuth);
-document.getElementById('githubAuthButton').addEventListener('click', handleGitHubAuth);
-document.getElementById('iiAuthButton').addEventListener('click', handleInternetIdentityAuth);
 
 // Trigger Prism.js highlighting
 Prism.highlightAll();
