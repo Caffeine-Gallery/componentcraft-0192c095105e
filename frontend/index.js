@@ -163,6 +163,7 @@ function debounce(func, wait) {
 }
 
 const performSearch = debounce(() => {
+    console.log('Performing search...'); // Debug log
     const searchTerm = searchInput.value.toLowerCase();
     let hasResults = false;
 
@@ -174,10 +175,12 @@ const performSearch = debounce(() => {
             const title = card.querySelector('.component-title').textContent.toLowerCase();
             const description = card.querySelector('.component-description').textContent.toLowerCase();
             const keywords = card.dataset.keywords.toLowerCase();
-            const content = card.textContent.toLowerCase();
+            const category = section.id.toLowerCase();
 
-            if (title.includes(searchTerm) || description.includes(searchTerm) || 
-                keywords.includes(searchTerm) || content.includes(searchTerm)) {
+            if (title.includes(searchTerm) || 
+                description.includes(searchTerm) || 
+                keywords.includes(searchTerm) ||
+                category.includes(searchTerm)) {
                 card.style.display = 'block';
                 sectionHasResults = true;
                 hasResults = true;
@@ -190,9 +193,25 @@ const performSearch = debounce(() => {
     });
 
     noResults.style.display = hasResults ? 'none' : 'block';
+    console.log('Search completed. Has results:', hasResults); // Debug log
 }, 300);
 
 searchInput.addEventListener('input', performSearch);
+
+// Clear search functionality
+const clearSearchButton = document.createElement('button');
+clearSearchButton.textContent = 'Clear';
+clearSearchButton.style.display = 'none';
+clearSearchButton.addEventListener('click', () => {
+    searchInput.value = '';
+    performSearch();
+    clearSearchButton.style.display = 'none';
+});
+searchInput.parentNode.insertBefore(clearSearchButton, searchInput.nextSibling);
+
+searchInput.addEventListener('input', () => {
+    clearSearchButton.style.display = searchInput.value ? 'inline-block' : 'none';
+});
 
 // Event listeners
 document.getElementById('iiAuthButton').addEventListener('click', handleIIAuthentication);
@@ -203,3 +222,6 @@ initAuth();
 
 // Trigger Prism.js highlighting
 Prism.highlightAll();
+
+// Debug: Log when the script has finished loading
+console.log('Script loaded and executed');
