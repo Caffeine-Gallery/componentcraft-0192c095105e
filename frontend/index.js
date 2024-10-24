@@ -21,14 +21,17 @@ document.querySelectorAll('.view-button').forEach(button => {
     });
 });
 
-// Handle code copying
+// Handle code copying with improved feedback
 document.querySelectorAll('.copy-button').forEach(button => {
     button.addEventListener('click', () => {
         const code = button.nextElementSibling.textContent;
         navigator.clipboard.writeText(code);
+        const originalText = button.textContent;
         button.textContent = 'Copied!';
+        button.style.background = '#4CAF50';
         setTimeout(() => {
-            button.textContent = 'Copy Code';
+            button.textContent = originalText;
+            button.style.background = '';
         }, 2000);
     });
 });
@@ -144,3 +147,6 @@ initAuth();
 document.getElementById('googleAuthButton').addEventListener('click', handleGoogleAuth);
 document.getElementById('githubAuthButton').addEventListener('click', handleGitHubAuth);
 document.getElementById('iiAuthButton').addEventListener('click', handleInternetIdentityAuth);
+
+// Trigger Prism.js highlighting
+Prism.highlightAll();

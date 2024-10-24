@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Component Library</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="index.css">
 </head>
 <body class="dark-theme">
@@ -172,7 +172,7 @@
                     </div>
                     <div class="component-view preview-view active">
                         <div class="preview-container">
-                            <button class="auth-button" id="googleAuthButton">
+                            <button class="auth-button">
                                 <img src="https://www.google.com/favicon.ico" alt="Google logo" />
                                 Sign in with Google
                             </button>
@@ -181,10 +181,22 @@
                     <div class="component-view code-view">
                         <div class="code-container">
                             <button class="copy-button">Copy Code</button>
-                            <pre><code class="language-html">&lt;button class="auth-button" id="googleAuthButton"&gt;
-    &lt;img src="https://www.google.com/favicon.ico" alt="Google logo" /&gt;
+                            <pre><code class="language-html">&lt;button class="auth-button" onclick="signInWithGoogle()"&gt;
+    &lt;img src="google-logo.png" alt="Google logo" /&gt;
     Sign in with Google
-&lt;/button&gt;</code></pre>
+&lt;/button&gt;
+
+&lt;script&gt;
+function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+            // Handle successful login
+        }).catch((error) => {
+            // Handle errors
+        });
+}
+&lt;/script&gt;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -201,7 +213,7 @@
                     </div>
                     <div class="component-view preview-view active">
                         <div class="preview-container">
-                            <button class="auth-button" id="githubAuthButton">
+                            <button class="auth-button">
                                 <img src="https://github.com/favicon.ico" alt="GitHub logo" />
                                 Sign in with GitHub
                             </button>
@@ -210,10 +222,22 @@
                     <div class="component-view code-view">
                         <div class="code-container">
                             <button class="copy-button">Copy Code</button>
-                            <pre><code class="language-html">&lt;button class="auth-button" id="githubAuthButton"&gt;
-    &lt;img src="https://github.com/favicon.ico" alt="GitHub logo" /&gt;
+                            <pre><code class="language-html">&lt;button class="auth-button" onclick="signInWithGitHub()"&gt;
+    &lt;img src="github-logo.png" alt="GitHub logo" /&gt;
     Sign in with GitHub
-&lt;/button&gt;</code></pre>
+&lt;/button&gt;
+
+&lt;script&gt;
+function signInWithGitHub() {
+    const provider = new firebase.auth.GithubAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+            // Handle successful login
+        }).catch((error) => {
+            // Handle errors
+        });
+}
+&lt;/script&gt;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -230,7 +254,7 @@
                     </div>
                     <div class="component-view preview-view active">
                         <div class="preview-container">
-                            <button class="auth-button" id="iiAuthButton">
+                            <button class="auth-button">
                                 <img src="https://internetcomputer.org/favicon.ico" alt="Internet Identity logo" />
                                 Sign in with Internet Identity
                             </button>
@@ -239,10 +263,26 @@
                     <div class="component-view code-view">
                         <div class="code-container">
                             <button class="copy-button">Copy Code</button>
-                            <pre><code class="language-html">&lt;button class="auth-button" id="iiAuthButton"&gt;
-    &lt;img src="https://internetcomputer.org/favicon.ico" alt="Internet Identity logo" /&gt;
+                            <pre><code class="language-html">&lt;button class="auth-button" onclick="signInWithInternetIdentity()"&gt;
+    &lt;img src="ii-logo.png" alt="Internet Identity logo" /&gt;
     Sign in with Internet Identity
-&lt;/button&gt;</code></pre>
+&lt;/button&gt;
+
+&lt;script&gt;
+async function signInWithInternetIdentity() {
+    const authClient = await AuthClient.create();
+    const isAuthenticated = await authClient.isAuthenticated();
+
+    if (!isAuthenticated) {
+        await authClient.login({
+            identityProvider: "https://identity.ic0.app/#authorize",
+            onSuccess: () => {
+                // Handle successful login
+            }
+        });
+    }
+}
+&lt;/script&gt;</code></pre>
                         </div>
                     </div>
                 </div>
@@ -282,7 +322,8 @@
         </section>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
     <script type="module" src="index.js"></script>
 </body>
 </html>
