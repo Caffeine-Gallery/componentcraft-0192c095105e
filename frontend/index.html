@@ -362,6 +362,104 @@ document.querySelector('#iiAuthButton').addEventListener('click', handleAuthenti
                         </div>
                     </div>
                 </div>
+
+                <div class="component-card" data-keywords="login signin security identity github">
+                    <div class="component-header">
+                        <h3 class="component-title">GitHub Auth</h3>
+                        <p class="component-description">Login with GitHub authentication</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <button class="auth-button" id="githubAuthButton">
+                                <img src="https://github.com/favicon.ico" alt="GitHub logo" />
+                                Sign in with GitHub
+                            </button>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-javascript">
+import { AuthClient } from "@dfinity/auth-client";
+
+async function handleGitHubAuthentication() {
+  const authClient = await AuthClient.create();
+  if (await authClient.isAuthenticated()) {
+    handleAuthenticated(authClient);
+  } else {
+    await authClient.login({
+      identityProvider: "https://github.com/login/oauth/authorize",
+      onSuccess: () => {
+        handleAuthenticated(authClient);
+      },
+    });
+  }
+}
+
+function handleAuthenticated(authClient) {
+  const identity = authClient.getIdentity();
+  const principal = identity.getPrincipal().toString();
+  console.log(`Authenticated with GitHub. Principal: ${principal}`);
+}
+
+document.querySelector('#githubAuthButton').addEventListener('click', handleGitHubAuthentication);
+</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="component-card" data-keywords="login signin security identity google">
+                    <div class="component-header">
+                        <h3 class="component-title">Google Auth</h3>
+                        <p class="component-description">Login with Google authentication</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <button class="auth-button" id="googleAuthButton">
+                                <img src="https://www.google.com/favicon.ico" alt="Google logo" />
+                                Sign in with Google
+                            </button>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-javascript">
+import { AuthClient } from "@dfinity/auth-client";
+
+async function handleGoogleAuthentication() {
+  const authClient = await AuthClient.create();
+  if (await authClient.isAuthenticated()) {
+    handleAuthenticated(authClient);
+  } else {
+    await authClient.login({
+      identityProvider: "https://accounts.google.com/o/oauth2/v2/auth",
+      onSuccess: () => {
+        handleAuthenticated(authClient);
+      },
+    });
+  }
+}
+
+function handleAuthenticated(authClient) {
+  const identity = authClient.getIdentity();
+  const principal = identity.getPrincipal().toString();
+  console.log(`Authenticated with Google. Principal: ${principal}`);
+}
+
+document.querySelector('#googleAuthButton').addEventListener('click', handleGoogleAuthentication);
+</code></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 

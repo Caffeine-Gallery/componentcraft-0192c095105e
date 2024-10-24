@@ -114,6 +114,34 @@ async function handleIIAuthentication() {
     }
 }
 
+async function handleGitHubAuthentication() {
+    const authClient = await AuthClient.create();
+    if (await authClient.isAuthenticated()) {
+        handleAuthenticated(authClient);
+    } else {
+        await authClient.login({
+            identityProvider: "https://github.com/login/oauth/authorize",
+            onSuccess: () => {
+                handleAuthenticated(authClient);
+            },
+        });
+    }
+}
+
+async function handleGoogleAuthentication() {
+    const authClient = await AuthClient.create();
+    if (await authClient.isAuthenticated()) {
+        handleAuthenticated(authClient);
+    } else {
+        await authClient.login({
+            identityProvider: "https://accounts.google.com/o/oauth2/v2/auth",
+            onSuccess: () => {
+                handleAuthenticated(authClient);
+            },
+        });
+    }
+}
+
 function handleAuthenticated(authClient) {
     const identity = authClient.getIdentity();
     const principal = identity.getPrincipal().toString();
@@ -176,11 +204,13 @@ const performSearch = debounce(() => {
             const description = card.querySelector('.component-description').textContent.toLowerCase();
             const keywords = card.dataset.keywords.toLowerCase();
             const category = section.id.toLowerCase();
+            const content = card.textContent.toLowerCase();
 
             if (title.includes(searchTerm) || 
                 description.includes(searchTerm) || 
                 keywords.includes(searchTerm) ||
-                category.includes(searchTerm)) {
+                category.includes(searchTerm) ||
+                content.includes(searchTerm)) {
                 card.style.display = 'block';
                 sectionHasResults = true;
                 hasResults = true;
@@ -215,6 +245,8 @@ searchInput.addEventListener('input', () => {
 
 // Event listeners
 document.getElementById('iiAuthButton').addEventListener('click', handleIIAuthentication);
+document.getElementById('githubAuthButton').addEventListener('click', handleGitHubAuthentication);
+document.getElementById('googleAuthButton').addEventListener('click', handleGoogleAuthentication);
 document.getElementById('callCanisterButton').addEventListener('click', callCanister);
 
 // Initialize authentication
