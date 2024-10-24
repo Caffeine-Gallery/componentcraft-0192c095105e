@@ -1,4 +1,5 @@
 import { AuthClient } from "@dfinity/auth-client";
+import { Actor, HttpAgent } from "@dfinity/agent";
 
 // Handle view switching
 document.querySelectorAll('.view-button').forEach(button => {
@@ -37,7 +38,7 @@ document.querySelectorAll('.copy-button').forEach(button => {
 
 // Handle category switching
 document.querySelectorAll('.category-link').forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('click', (e)=> {
         e.preventDefault();
         const category = link.dataset.category;
         
@@ -120,11 +121,45 @@ function handleAuthenticated(authClient) {
     updateAuthButtons(true);
 }
 
-// Canister interaction (placeholder)
-function callCanister() {
-    console.log("Canister interaction is not available in this demo.");
-    document.getElementById('canisterResult').textContent = "Canister interaction is not available in this demo.";
+// Canister interaction
+const agent = new HttpAgent();
+const canisterId = "YOUR_CANISTER_ID"; // Replace with your actual canister ID
+
+// Replace this with your actual canister interface
+const canisterInterface = {
+  idlFactory: ({ IDL }) => {
+    return IDL.Service({
+      'greet': IDL.Func([IDL.Text], [IDL.Text], ['query']),
+    });
+  },
+};
+
+const canister = Actor.createActor(canisterInterface, { agent, canisterId });
+
+async function callCanister() {
+    try {
+        const result = await canister.greet("World");
+        document.getElementById('result').textContent = result;
+    } catch (error) {
+        console.error("Error calling canister:", error);
+        document.getElementById('result').textContent = "Error: " + error.message;
+    }
 }
+
+// Search functionality
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    document.querySelectorAll('.component-card').forEach(card => {
+        const title = card.querySelector('.component-title').textContent.toLowerCase();
+        const description = card.querySelector('.component-description').textContent.toLowerCase();
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+});
 
 // Event listeners
 document.getElementById('iiAuthButton').addEventListener('click', handleIIAuthentication);
