@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Component Library</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="dark-theme">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>Components</h1>
+        </div>
+        <ul class="category-list">
+            <li class="category-item">
+                <a class="category-link active" data-category="all">All Components</a>
+            </li>
+            <li class="category-item">
+                <a class="category-link" data-category="tooltips">Tooltips</a>
+            </li>
+            <li class="category-item">
+                <a class="category-link" data-category="modals">Modals</a>
+            </li>
+            <li class="category-item">
+                <a class="category-link" data-category="forms">Forms</a>
+            </li>
+            <li class="category-item">
+                <a class="category-link" data-category="buttons">Buttons</a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search components...">
+            <div class="theme-toggle" id="themeToggle"></div>
+        </div>
+
+        <!-- Tooltips Section -->
+        <section id="tooltips" class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Tooltips</h2>
+                <a href="#" class="see-all">See all tooltips →</a>
+            </div>
+            <div class="components-grid">
+                <!-- Tooltip Component 1 -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <h3 class="component-title">Simple Tooltip</h3>
+                        <p class="component-description">Basic tooltip with hover trigger</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <button style="position: relative; padding: 0.5rem 1rem; background: #333; border: none; border-radius: 4px; color: white;">
+                                Hover me
+                            </button>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-html">&lt;button class="tooltip-trigger"&gt;
+  Hover me
+  &lt;span class="tooltip"&gt;I'm a tooltip!&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Modals Section -->
+        <section id="modals" class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Modals</h2>
+                <a href="#" class="see-all">See all modals →</a>
+            </div>
+            <div class="components-grid">
+                <!-- Modal Component 1 -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <h3 class="component-title">Simple Modal</h3>
+                        <p class="component-description">Basic modal with close button</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <div style="background: var(--bg-card); padding: 2rem; border-radius: 8px; width: 300px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 style="color: var(--text-primary);">Modal Title</h3>
+                                    <button style="background: none; border: none; color: var(--text-primary); cursor: pointer;">×</button>
+                                </div>
+                                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Modal content goes here...</p>
+                                <button style="width: 100%; padding: 0.75rem; background: var(--accent); border: none; border-radius: 4px; color: white; cursor: pointer;">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-html">&lt;div class="modal"&gt;
+    &lt;div class="modal-header"&gt;
+        &lt;h3&gt;Modal Title&lt;/h3&gt;
+        &lt;button class="close-button"&gt;×&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;p&gt;Modal content goes here...&lt;/p&gt;
+    &lt;button class="close-button"&gt;Close&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forms Section -->
+        <section id="forms" class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Forms</h2>
+                <a href="#" class="see-all">See all forms →</a>
+            </div>
+            <div class="components-grid">
+                <!-- Form Component 1 -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <h3 class="component-title">Login Form</h3>
+                        <p class="component-description">Basic login form with email and password fields</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <form style="background: var(--bg-card); padding: 2rem; border-radius: 8px; width: 300px;">
+                                <h3 style="color: var(--text-primary); margin-bottom: 1rem;">Login</h3>
+                                <input type="email" placeholder="Email" style="width: 100%; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-primary); margin-bottom: 1rem;">
+                                <input type="password" placeholder="Password" style="width: 100%; padding: 0.75rem; background: var(--bg); border: 1px solid var(--border-color); border-radius: 4px; color: var(--text-primary); margin-bottom: 1rem;">
+                                <button type="submit" style="width: 100%; padding: 0.75rem; background: var(--accent); border: none; border-radius: 4px; color: white; cursor: pointer;">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-html">&lt;form class="login-form"&gt;
+    &lt;h3&gt;Login&lt;/h3&gt;
+    &lt;input type="email" placeholder="Email"&gt;
+    &lt;input type="password" placeholder="Password"&gt;
+    &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Google Auth Login -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <h3 class="component-title">Google Auth Login</h3>
+                        <p class="component-description">Login with Google authentication</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <button class="auth-button" id="googleAuthButton">
+                                <img src="https://www.google.com/favicon.ico" alt="Google logo" />
+                                Sign in with Google
+                            </button>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-html">&lt;button class="auth-button" id="googleAuthButton"&gt;
+    &lt;img src="https://www.google.com/favicon.ico" alt="Google logo" /&gt;
+    Sign in with Google
+&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GitHub Auth Login -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <h3 class="component-title">GitHub Auth Login</h3>
+                        <p class="component-description">Login with GitHub authentication</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <button class="auth-button" id="githubAuthButton">
+                                <img src="https://github.com/favicon.ico" alt="GitHub logo" />
+                                Sign in with GitHub
+                            </button>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-html">&lt;button class="auth-button" id="githubAuthButton"&gt;
+    &lt;img src="https://github.com/favicon.ico" alt="GitHub logo" /&gt;
+    Sign in with GitHub
+&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Internet Identity Auth Login -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <h3 class="component-title">Internet Identity Auth Login</h3>
+                        <p class="component-description">Login with Internet Identity authentication</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <button class="auth-button" id="iiAuthButton">
+                                <img src="https://internetcomputer.org/favicon.ico" alt="Internet Identity logo" />
+                                Sign in with Internet Identity
+                            </button>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-html">&lt;button class="auth-button" id="iiAuthButton"&gt;
+    &lt;img src="https://internetcomputer.org/favicon.ico" alt="Internet Identity logo" /&gt;
+    Sign in with Internet Identity
+&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section id="buttons" class="category-section">
+            <div class="category-header">
+                <h2 class="category-title">Buttons</h2>
+                <a href="#" class="see-all">See all buttons →</a>
+            </div>
+            <div class="components-grid">
+                <!-- Button Component 1 -->
+                <div class="component-card">
+                    <div class="component-header">
+                        <h3 class="component-title">Primary Button</h3>
+                        <p class="component-description">Standard primary action button</p>
+                    </div>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="preview">Preview</button>
+                        <button class="view-button" data-view="code">Code</button>
+                    </div>
+                    <div class="component-view preview-view active">
+                        <div class="preview-container">
+                            <button style="padding: 0.75rem 1.5rem; background: var(--accent); border: none; border-radius: 4px; color: white; cursor: pointer;">Primary Action</button>
+                        </div>
+                    </div>
+                    <div class="component-view code-view">
+                        <div class="code-container">
+                            <button class="copy-button">Copy Code</button>
+                            <pre><code class="language-html">&lt;button class="primary-button"&gt;Primary Action&lt;/button&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script type="module" src="index.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+type User = 
+ record {
+   email: text;
+   id: principal;
+   name: text;
+ };
+type Result_1 = 
+ variant {
+   err: text;
+   ok: User;
+ };
+type Result = 
+ variant {
+   err: text;
+   ok;
+ };
+service : {
+  getUser: () -> (Result_1);
+  isAuthenticated: () -> (bool);
+  logout: () -> ();
+  registerUser: (text, text) -> (Result);
+}
