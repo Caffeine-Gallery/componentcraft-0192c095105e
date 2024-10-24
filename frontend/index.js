@@ -38,7 +38,7 @@ document.querySelectorAll('.copy-button').forEach(button => {
 
 // Handle category switching
 document.querySelectorAll('.category-link').forEach(link => {
-    link.addEventListener('click', (e)=> {
+    link.addEventListener('click', (e) => {
         e.preventDefault();
         const category = link.dataset.category;
         
@@ -146,20 +146,53 @@ async function callCanister() {
     }
 }
 
-// Search functionality
+// Improved search functionality
 const searchInput = document.getElementById('searchInput');
-searchInput.addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    document.querySelectorAll('.component-card').forEach(card => {
-        const title = card.querySelector('.component-title').textContent.toLowerCase();
-        const description = card.querySelector('.component-description').textContent.toLowerCase();
-        if (title.includes(searchTerm) || description.includes(searchTerm)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
+const noResults = document.getElementById('noResults');
+
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+const performSearch = debounce(() => {
+    const searchTerm = searchInput.value.toLowerCase();
+    let hasResults = false;
+
+    document.querySelectorAll('.category-section').forEach(section => {
+        const cards = section.querySelectorAll('.component-card');
+        let sectionHasResults = false;
+
+        cards.forEach(card => {
+            const title = card.querySelector('.component-title').textContent.toLowerCase();
+            const description = card.querySelector('.component-description').textContent.toLowerCase();
+            const keywords = card.dataset.keywords.toLowerCase();
+            const content = card.textContent.toLowerCase();
+
+            if (title.includes(searchTerm) || description.includes(searchTerm) || 
+                keywords.includes(searchTerm) || content.includes(searchTerm)) {
+                card.style.display = 'block';
+                sectionHasResults = true;
+                hasResults = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        section.style.display = sectionHasResults ? 'block' : 'none';
     });
-});
+
+    noResults.style.display = hasResults ? 'none' : 'block';
+}, 300);
+
+searchInput.addEventListener('input', performSearch);
 
 // Event listeners
 document.getElementById('iiAuthButton').addEventListener('click', handleIIAuthentication);

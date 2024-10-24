@@ -42,6 +42,7 @@
             <input type="text" class="search-input" placeholder="Search components..." id="searchInput">
             <div class="theme-toggle" id="themeToggle"></div>
         </div>
+        <div id="noResults" style="display: none;">No results found</div>
 
         <section id="tooltips" class="category-section">
             <div class="category-header">
@@ -49,7 +50,7 @@
                 <a href="#" class="see-all">See all tooltips →</a>
             </div>
             <div class="components-grid">
-                <div class="component-card">
+                <div class="component-card" data-keywords="hover information popup">
                     <div class="component-header">
                         <h3 class="component-title">Simple Tooltip</h3>
                         <p class="component-description">Basic tooltip with hover trigger</p>
@@ -111,7 +112,7 @@
                 <a href="#" class="see-all">See all modals →</a>
             </div>
             <div class="components-grid">
-                <div class="component-card">
+                <div class="component-card" data-keywords="popup dialog overlay">
                     <div class="component-header">
                         <h3 class="component-title">Simple Modal</h3>
                         <p class="component-description">Basic modal with close button</p>
@@ -199,7 +200,7 @@ function closeModal() {
                 <a href="#" class="see-all">See all forms →</a>
             </div>
             <div class="components-grid">
-                <div class="component-card">
+                <div class="component-card" data-keywords="input fields submit user data">
                     <div class="component-header">
                         <h3 class="component-title">Login Form</h3>
                         <p class="component-description">Basic login form with email and password fields</p>
@@ -266,7 +267,7 @@ function closeModal() {
                 <a href="#" class="see-all">See all buttons →</a>
             </div>
             <div class="components-grid">
-                <div class="component-card">
+                <div class="component-card" data-keywords="click action ui element">
                     <div class="component-header">
                         <h3 class="component-title">Primary Button</h3>
                         <p class="component-description">Standard primary action button</p>
@@ -311,7 +312,7 @@ function closeModal() {
                 <a href="#" class="see-all">See all authentication components →</a>
             </div>
             <div class="components-grid">
-                <div class="component-card">
+                <div class="component-card" data-keywords="login signin security identity">
                     <div class="component-header">
                         <h3 class="component-title">Internet Identity Auth</h3>
                         <p class="component-description">Login with Internet Identity authentication</p>
@@ -370,7 +371,7 @@ document.querySelector('#iiAuthButton').addEventListener('click', handleAuthenti
                 <a href="#" class="see-all">See all canister interaction components →</a>
             </div>
             <div class="components-grid">
-                <div class="component-card">
+                <div class="component-card" data-keywords="backend api call smart contract">
                     <div class="component-header">
                         <h3 class="component-title">Canister Call</h3>
                         <p class="component-description">Make a call to an Internet Computer canister</p>
